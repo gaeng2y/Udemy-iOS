@@ -37,6 +37,16 @@ class ViewController: UIViewController {
         return imageView
     }()
     
+    lazy var rollButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Roll", for: .normal)
+        button.backgroundColor = .systemPink
+        button.titleLabel?.textColor = .white
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
+        button.addTarget(self, action: #selector(onClickRoll(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // background
@@ -71,5 +81,24 @@ class ViewController: UIViewController {
          diceImageView2.widthAnchor.constraint(equalToConstant: 120)].forEach { constraint in
             constraint.isActive = true
         }
+        
+        self.view.addSubview(rollButton)
+        [rollButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: 0),
+         rollButton.heightAnchor.constraint(equalToConstant: 70),
+         rollButton.widthAnchor.constraint(equalToConstant: 150),
+         rollButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)].forEach { constraint in
+            constraint.isActive = true
+        }
+    }
+    
+    @objc private func onClickRoll(_ sender: UIButton) {
+        let diceImageList = [UIImage(imageLiteralResourceName: "DiceOne"),
+                             UIImage(imageLiteralResourceName: "DiceTwo"),
+                             UIImage(imageLiteralResourceName: "DiceThree"),
+                             UIImage(imageLiteralResourceName: "DiceFour"),
+                             UIImage(imageLiteralResourceName: "DiceFive"),
+                             UIImage(imageLiteralResourceName: "DiceSix"),]
+        diceImageView1.image = diceImageList.randomElement()
+        diceImageView2.image = diceImageList.randomElement()
     }
 }
